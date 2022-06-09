@@ -6,6 +6,9 @@ import sys
 sys.path.append(".")
 
 import pandas as pd
+import joblib
+from typing import Union
+from sklearn.ensemble import RandomForestClassifier
 from typing import Optional
 from fastapi import FastAPI, Request, Body
 from data_models.loans_data_model import Loans
@@ -15,47 +18,82 @@ logger = LoggerFactory.get_logger(log_level="info")
 
 app = FastAPI()
 
+model = joblib.load("/app/models/model.joblib")
+
+Model = Union[RandomForestClassifier]
+
+
+def get_default_probability(model: Model, record: list) -> float:
+    """
+    According with some features will return
+    the probability of a default.
+
+    Columns in the prediction array:
+        - LIMIT_BAL    int64
+        - EDUCATION    int64
+        - MARRIAGE     int64
+        - AGE          int64
+        - BILL_AMT1    int64
+        - BILL_AMT2    int64
+        - PAY_AMT1     int64
+        - PAY_AMT2     int64
+
+    Parameters
+    ----------
+        model : Model
+            Scikit-Learn model that predicts
+            according to an array
+        record : array
+            Values relative with the loan according
+            to the columns in the training.
+
+    Returns
+    -------
+        default_proba: float
+            Percentage of a probability of a default
+            according to the values passed.
+    """
+
+    prediction = model.predict_proba(record)
+    default_proba = prediction[0][0]
+    return default_proba
+
 
 @app.get("/ping")
 def pong():
+    record = [[20000, 2, 1, 24, 3913, 3102, 0, 689]]
+    result = get_default_probability(model=model, record=record)
+    print(result)
+
     return {"ping": "OK"}
 
 
 """
-
 @app.post("/prediction/v1")
 async def get_body(request: Request):
     result = await request.json()
 
-    order_data = Orders(
-        order_id=result["order_id"],
-        customer_id=result["customer_id"],
-        timestamp=result["timestamp"],
-        sku_code=result["sku_code"],
-        zip_code=result["zip_code"],
+    loan_data = Loans(
+        limit_bal=result["limit_bal"],
+        education=result["education"],
+        marriage=result["marriage"],
+        age=result["age"],
+        bill_amt1=result["bill_amt1"],
+        bill_amt2=result["bill_amt2"],
+        pay_amt1=result["pay_amt1"],
+        pay_amt2=result["pay_amt2"],
     )
 
-    order_id = order_data.order_id
-    customer_id = order_data.customer_id
+    limit_bal: int = result["limit_bal"].values
+    education: int = result["education"].values
+    marriage: int = result["marriage"].values
+    age: int = result["age"].values
+    bill_amt1: int = result["bill_amt1"].values
+    bill_amt2: int = result["bill_amt2"].values
+    pay_amt1: int = result["pay_amt1"].values
+    pay_amt2: int = result["pay_amt2"].values
 
-    features_calculated = features_processed[
-        (features_processed["order_id"] == order_id)
-        & (features_processed["customer_id"] == customer_id)
-    ].head(
-        1
-    )  # TODO: Check with the Wayfair team cases about duplications in data
 
-    order_hour_of_day: int = features_calculated["order_hour_of_day"].values
-
-    inventory: int = features_calculated["inventory"].values
-
-    payment_status: str = features_calculated["payment_status"].values
-
-    zip_code_available: bool = features_calculated["zip_code_available"].values
-
-    features = Features(
-        order_hour_of_day, inventory, payment_status, zip_code_available
-    )
 
     recommendation = predict(model_v1, features)
 
