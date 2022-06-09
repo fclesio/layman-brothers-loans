@@ -61,6 +61,21 @@ def get_y(df):
 def get_X(df):
     del df["DEFAULT"]
     del df["ID"]
+    del df["SEX"]
+    del df["PAY_0"]
+    del df["PAY_2"]
+    del df["PAY_3"]
+    del df["PAY_4"]
+    del df["PAY_5"]
+    del df["PAY_6"]
+    del df["BILL_AMT3"]
+    del df["BILL_AMT4"]
+    del df["BILL_AMT5"]
+    del df["BILL_AMT6"]
+    del df["PAY_AMT3"]
+    del df["PAY_AMT4"]
+    del df["PAY_AMT5"]
+    del df["PAY_AMT6"]
     X = df
     return X
 
