@@ -9,6 +9,7 @@ services:
     shm_size: '25G'
     ports:
       - 8888:8888
+      - 80:80
     volumes:
       - ./src:/app/src
       - ./data:/app/data

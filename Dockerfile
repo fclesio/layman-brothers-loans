@@ -31,9 +31,10 @@ COPY Makefile /app/Makefile
 COPY src /app/src
 
 
-RUN pip --no-cache-dir install -r /app/requirements.txt
+RUN pip install -r /app/requirements.txt
 
 EXPOSE 8888
+EXPOSE 80
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
