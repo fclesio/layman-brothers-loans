@@ -1,5 +1,5 @@
 init:
-	find ./ -type f -exec sed -i -e 's/ml_template/$(PROJECT)/g' {} \;
+	find ./ -type f -exec sed -i -e 's/layman_brothers_loans/$(PROJECT)/g' {} \;
 	find . -name "*-e" -type f -delete
 start:
 	export DOCKER_BUILDKIT=0  \

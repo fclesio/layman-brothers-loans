@@ -132,7 +132,7 @@ make tests
 - [X] Change to `push`
 - [X] include main logging library
 - [X] Metrics and txt with the metrics inside of docs folder inside of the volume
-- [X] Ensure that the ``ecr_push.sh`` replaces the `ml_template` name
+- [X] Ensure that the ``ecr_push.sh`` replaces the `layman_brothers_loans` name
 
 #### v0.02
 - [ ] Single name for the project in docker container
