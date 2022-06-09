@@ -18,12 +18,12 @@ logger = LoggerFactory.get_logger(log_level="info")
 
 app = FastAPI()
 
-model = joblib.load("/app/models/model.joblib")
+serialized_model = joblib.load("/app/models/model.joblib")
 
 Model = Union[RandomForestClassifier]
 
 
-def get_default_probability(model: Model, record: list) -> float:
+def get_default_probability(model_artifact: Model, record: list) -> float:
     """
     According with some features will return
     the probability of a default.
@@ -40,7 +40,7 @@ def get_default_probability(model: Model, record: list) -> float:
 
     Parameters
     ----------
-        model : Model
+        model_artifact : Model
             Scikit-Learn model that predicts
             according to an array
         record : array
@@ -54,21 +54,16 @@ def get_default_probability(model: Model, record: list) -> float:
             according to the values passed.
     """
 
-    prediction = model.predict_proba(record)
+    prediction = model_artifact.predict_proba(record)
     default_proba = prediction[0][0]
     return default_proba
 
 
 @app.get("/ping")
 def pong():
-    record = [[20000, 2, 1, 24, 3913, 3102, 0, 689]]
-    result = get_default_probability(model=model, record=record)
-    print(result)
-
     return {"ping": "OK"}
 
 
-"""
 @app.post("/prediction/v1")
 async def get_body(request: Request):
     result = await request.json()
@@ -84,24 +79,23 @@ async def get_body(request: Request):
         pay_amt2=result["pay_amt2"],
     )
 
-    limit_bal: int = result["limit_bal"].values
-    education: int = result["education"].values
-    marriage: int = result["marriage"].values
-    age: int = result["age"].values
-    bill_amt1: int = result["bill_amt1"].values
-    bill_amt2: int = result["bill_amt2"].values
-    pay_amt1: int = result["pay_amt1"].values
-    pay_amt2: int = result["pay_amt2"].values
+    limit_bal: int = loan_data.limit_bal
+    education: int = loan_data.education
+    marriage: int = loan_data.marriage
+    age: int = loan_data.age
+    bill_amt1: int = loan_data.bill_amt1
+    bill_amt2: int = loan_data.bill_amt2
+    pay_amt1: int = loan_data.pay_amt1
+    pay_amt2: int = loan_data.pay_amt2
 
+    record = [
+        [limit_bal, education, marriage, age, bill_amt1, bill_amt2, pay_amt1, pay_amt2]
+    ]
 
+    result = get_default_probability(model_artifact=serialized_model, record=record)
 
-    recommendation = predict(model_v1, features)
-
-    result_dict = {}
-    result_dict["order_id"] = order_id
-    result_dict["recommendation"] = str(recommendation.value).upper()
+    result_dict = {"default_probability": result}
 
     logger.info(f"API Input: {result} - Prediction Output: {result_dict}")
 
     return result_dict
-"""
