@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
+
+sys.path.append(".")
+
 import pandas as pd
 from typing import Optional
 from fastapi import FastAPI, Request, Body
-from data_models import Loans
-from src.logger.logger_factory import LoggerFactory
-
+from data_models.loans_data_model import Loans
+from src.logger.loggerfactory import LoggerFactory
 
 logger = LoggerFactory.get_logger(log_level="info")
 
@@ -17,9 +20,10 @@ app = FastAPI()
 def pong():
     return {"ping": "OK"}
 
+
 """
 
-@app.post("/decision/v1")
+@app.post("/prediction/v1")
 async def get_body(request: Request):
     result = await request.json()
 

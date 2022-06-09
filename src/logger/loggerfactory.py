@@ -1,5 +1,6 @@
 import logging
 
+
 class LoggerFactory(object):
     _LOG = None
 
