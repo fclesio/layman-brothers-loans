@@ -10,6 +10,8 @@ services:
     ports:
       - 8888:8888
       - 80:80
+      - 8503:8503
+      - 7860:7860
     volumes:
       - ./src:/app/src
       - ./data:/app/data

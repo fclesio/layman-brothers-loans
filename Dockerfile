@@ -29,12 +29,16 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 COPY Makefile /app/Makefile
 COPY src /app/src
-
+COPY models /app/models
+COPY notebooks /app/notebooks
+COPY bin /app/bin
 
 RUN pip install -r /app/requirements.txt
 
 EXPOSE 8888
 EXPOSE 80
+EXPOSE 8503
+EXPOSE 7860
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
