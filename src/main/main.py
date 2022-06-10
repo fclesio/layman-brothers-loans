@@ -65,28 +65,15 @@ def pong():
 
 
 @app.post("/prediction/v1")
-async def get_body(request: Request):
-    result = await request.json()
-
-    loan_data = Loans(
-        limit_bal=result["limit_bal"],
-        education=result["education"],
-        marriage=result["marriage"],
-        age=result["age"],
-        bill_amt1=result["bill_amt1"],
-        bill_amt2=result["bill_amt2"],
-        pay_amt1=result["pay_amt1"],
-        pay_amt2=result["pay_amt2"],
-    )
-
-    limit_bal: int = loan_data.limit_bal
-    education: int = loan_data.education
-    marriage: int = loan_data.marriage
-    age: int = loan_data.age
-    bill_amt1: int = loan_data.bill_amt1
-    bill_amt2: int = loan_data.bill_amt2
-    pay_amt1: int = loan_data.pay_amt1
-    pay_amt2: int = loan_data.pay_amt2
+async def get_body(loan: Loans):
+    limit_bal: int = loan.limit_bal
+    education: int = loan.education
+    marriage: int = loan.marriage
+    age: int = loan.age
+    bill_amt1: int = loan.bill_amt1
+    bill_amt2: int = loan.bill_amt2
+    pay_amt1: int = loan.pay_amt1
+    pay_amt2: int = loan.pay_amt2
 
     record = [
         [limit_bal, education, marriage, age, bill_amt1, bill_amt2, pay_amt1, pay_amt2]
@@ -96,6 +83,11 @@ async def get_body(request: Request):
 
     result_dict = {"default_probability": result}
 
-    logger.info(f"API Input: {result} - Prediction Output: {result_dict}")
+    logger.info(f"API Input: {result} - Prediction Output: {result_dict}\n")
 
     return result_dict
+
+
+
+
+

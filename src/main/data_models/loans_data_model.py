@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from dataclasses import dataclass
+
+from pydantic import BaseModel
 
 
-@dataclass()
-class Loans:
+class Loans(BaseModel):
     limit_bal: int
     education: int
     marriage: int
