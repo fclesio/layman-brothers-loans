@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Local CSV files
+*.csv
+
+# Remove all idea
+.idea/*
+
+# Remove the data folder from git
+data/*

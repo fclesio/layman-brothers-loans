@@ -277,3 +277,6 @@ fabric.properties
 
 # Local CSV files
 *.csv
+
+# Remove all idea
+.idea/*
