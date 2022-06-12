@@ -8,4 +8,5 @@ black src/* \
 
 uvicorn main:app --host 0.0.0.0 --port 80 --app-dir /app/src/main --workers 2 --reload &
 jupyter notebook --allow-root --notebook-dir=. --ip=0.0.0.0 --port=8888 --no-browser &
+cd src; streamlit run /app/src/main/frontend/streamlit/app.py --server.port 8503 &
 wait
