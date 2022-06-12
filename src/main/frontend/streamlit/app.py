@@ -3,12 +3,12 @@
 
 import sys
 
-sys.path.append(".")
+sys.path.append("../.")
 
 import streamlit as st
 import pandas as pd
 import numpy as np
-#from src.main.prediction.model_predicton import get_default_probability
+from src.main.prediction.model_predicton import get_default_probability
 
 
 st.title("Layman Brothers Loan")
