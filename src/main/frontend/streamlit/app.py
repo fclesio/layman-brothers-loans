@@ -52,4 +52,5 @@ print(record)
 
 result = get_default_probability(record=record)
 
+st.title("Loan Risk Assessment")
 st.metric(label="Default Probability", value=f"{result}")
