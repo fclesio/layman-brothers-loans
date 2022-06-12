@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
-
-sys.path.append("../.")
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -47,12 +43,13 @@ pay_amt2 = st.slider("Payment Amount - Installment #2", 0, 500000, 0)
 st.write("Payment Amount - Installment #1: ", pay_amt2)
 
 
-"""
 record = [
     [limit_bal, education, marriage, age, bill_amt1, bill_amt2, pay_amt1, pay_amt2]
 ]
 
+
+print(record)
+
 result = get_default_probability(record=record)
 
 st.metric(label="Default Probability", value=f"{result}")
-"""
