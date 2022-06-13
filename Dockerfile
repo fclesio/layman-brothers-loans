@@ -38,7 +38,6 @@ RUN pip install -r /app/requirements.txt
 EXPOSE 8888
 EXPOSE 80
 EXPOSE 8503
-EXPOSE 7860
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 

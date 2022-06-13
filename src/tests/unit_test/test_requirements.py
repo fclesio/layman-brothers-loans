@@ -21,7 +21,6 @@ def test_requirements():
         "pytest==7.1.0",
         "locust==2.8.4",
         "streamlit == 1.10.0",
-        "gradio == 3.0.14",
     ]
 
     pkg_resources.require(dependencies)
