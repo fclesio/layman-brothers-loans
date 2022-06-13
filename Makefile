@@ -9,8 +9,8 @@ start:
 	&& docker container ps
 stop:
 	docker-compose stop
-ecr_push:
-	sh ecr_push.sh
+docker_push:
+	sh bin/docker_push.sh
 lint:
 	black --line-length 88 --verbose src
 tests:
