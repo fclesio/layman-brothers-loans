@@ -19,4 +19,4 @@ services:
       - ./notebooks:/app/notebooks
       - ./bin:/app/bin
       - ./meta:/app/meta
-    entrypoint: ["sh","bin/jupyter_run.sh"]
+    entrypoint: ["sh","bin/server_run.sh"]
