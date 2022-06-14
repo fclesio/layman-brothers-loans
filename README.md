@@ -1,5 +1,7 @@
 # Run docker image locally
+```shell
 docker run -p 8888:8888 -p 80:80 -p 8503:8503 -d mlopsde/layman-brothers-loans:latest sh bin/server_run.sh
+```
 
 ## Machine Learning Project Template
 This template comes to solve a need to have a containerized environment for model 
