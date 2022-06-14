@@ -1,6 +1,5 @@
 #!/bin/bash
-
-set -euo pipefail
+set -eux pipefail
 
 VERSION="latest"
 

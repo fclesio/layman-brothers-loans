@@ -26,12 +26,13 @@ RUN mkdir /app \
 
 WORKDIR /app
 
-COPY requirements.txt /app/requirements.txt
-COPY Makefile /app/Makefile
 COPY src /app/src
 COPY models /app/models
 COPY notebooks /app/notebooks
 COPY bin /app/bin
+COPY meta /app/meta
+COPY Makefile /app/Makefile
+COPY requirements.txt /app/requirements.txt
 
 RUN pip install -r /app/requirements.txt
 
