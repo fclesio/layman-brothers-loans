@@ -3,7 +3,6 @@ services:
   layman_brothers_loans:
     build:
       context: .
-    env_file: .env
     tty: true
     stdin_open: true
     shm_size: '25G'
