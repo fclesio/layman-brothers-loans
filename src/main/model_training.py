@@ -167,6 +167,5 @@ cm_display = ConfusionMatrixDisplay(cm, display_labels=classes).plot(
 )
 
 cm_display.figure_.savefig(dict_cml_objects_path["confusion_matrix"], dpi=300)
-#plt.savefig(dict_cml_objects_path["confusion_matrix"])
 
 logger.info("[TRAINING] - Training finished")
