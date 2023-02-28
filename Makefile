@@ -14,4 +14,4 @@ stop_dev_env: ## Stop docker-container that setup the development environment
 docker_push: ## Push images to the docker registry
 	sh bin/docker_push.sh
 tests: ## Run all tests
-	python -m pytest /app/src/test/unit_test/test_requirements.py -o log_cli=true --log-cli-level=INFO
+	python -m pytest /src/tests/unit_test/test_requirements.py -o log_cli=true --log-cli-level=INFO

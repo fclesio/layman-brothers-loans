@@ -12,9 +12,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: docker_push
+      - name: Install requirements
+        run: |
+          pip install -U pip && pip install -r requirements.txt
+      - name: Test requirements
+        run: |
+          make tests                  
+      - name: Linting
+        run: |
+          black src/*          
+      - name: Docker Login
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          pwd && ls && pip install -r requirements.txt
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
