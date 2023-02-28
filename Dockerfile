@@ -6,14 +6,15 @@ ENV LANG=C.UTF-8
 
 RUN apt-get update -qq && apt-get install -y \
   && apt-get -y install nano \
+  vim \
   dumb-init \
   build-essential \
   gcc \
   libgmp3-dev \
   libpq-dev \
+  parallel \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && pip install --upgrade pip
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir /app \
     && mkdir /app/src \
@@ -34,10 +35,10 @@ COPY meta /app/meta
 COPY Makefile /app/Makefile
 COPY requirements.txt /app/requirements.txt
 
-RUN pip install -r /app/requirements.txt
+RUN pip install --upgrade pip && pip install -r /app/requirements.txt
 
 EXPOSE 8888
-EXPOSE 80
+EXPOSE 8000
 EXPOSE 8503
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]

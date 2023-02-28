@@ -13,7 +13,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import plot_confusion_matrix
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from joblib import dump, load
 
 
@@ -124,7 +124,7 @@ np.savetxt(dict_data_path["y_test"], y_test)
 logger.info("[DATA-EXTRACTION]- Data extraction finished")
 
 dict_cml_objects_path = {
-    "confusion_matrix": "confusion_matrix.png",
+    "confusion_matrix": "meta/confusion_matrix.png",
     "metrics": "meta/metrics.txt",
 }
 
@@ -156,7 +156,17 @@ logger.info(f"[TRAINING] - Model accuracy: {acc}")
 with open(dict_cml_objects_path["metrics"], "w") as outfile:
     outfile.write("Accuracy: " + str(acc) + "\n")
 
-disp = plot_confusion_matrix(clf, X_test, y_test, normalize="true", cmap=plt.cm.Blues)
+y_pred = clf.predict(X_test)
 
-plt.savefig(dict_cml_objects_path["confusion_matrix"])
+classes = ["non_default", "default"]
+
+cm = confusion_matrix(y_test, y_pred)
+
+cm_display = ConfusionMatrixDisplay(cm, display_labels=classes).plot(
+    values_format=".0f"
+)
+
+cm_display.figure_.savefig(dict_cml_objects_path["confusion_matrix"], dpi=300)
+#plt.savefig(dict_cml_objects_path["confusion_matrix"])
+
 logger.info("[TRAINING] - Training finished")

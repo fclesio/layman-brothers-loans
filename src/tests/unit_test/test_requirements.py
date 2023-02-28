@@ -12,7 +12,7 @@ def test_requirements():
         "scipy==1.8.0",
         "boto3==1.21.4",
         "black==22.3.0",
-        "sklearn==0.0",
+        "scikit-learn==1.2.1",
         "jupyter==1.0.0",
         "matplotlib==3.5.1",
         "fastapi>=0.68.0,<0.69.0",
@@ -20,7 +20,7 @@ def test_requirements():
         "uvicorn>=0.15.0,<0.16.0",
         "pytest==7.1.0",
         "locust==2.8.4",
-        "streamlit == 1.10.0",
+        "streamlit==1.10.0",
     ]
 
     pkg_resources.require(dependencies)
