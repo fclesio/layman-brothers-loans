@@ -5,12 +5,12 @@ import sys
 sys.path.append(".")
 
 import joblib
-from typing import Union
+from typing import List
 from sklearn.ensemble import RandomForestClassifier
 
 serialized_model = joblib.load("/app/models/model.joblib")
 
-Model = Union[RandomForestClassifier]
+Model = List[RandomForestClassifier]
 
 
 def get_default_probability(
