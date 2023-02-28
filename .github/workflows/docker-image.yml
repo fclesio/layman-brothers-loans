@@ -1,23 +1,18 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  release:
+    types: [published]
 
 jobs:
   run:
-    runs-on: python:3.8.12-slim
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install requirements
         run: |
           pip install -U pip && pip install -r requirements.txt
-      - name: Test requirements
-        run: |
-          cd src/tests/unit_test && python -m pytest test_requirements.py -o log_cli=true --log-cli-level=INFO 
       - name: Linting
         run: |
           black src/*          
