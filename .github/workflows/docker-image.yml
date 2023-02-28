@@ -17,7 +17,7 @@ jobs:
           pip install -U pip && pip install -r requirements.txt
       - name: Test requirements
         run: |
-          pwd && ls                  
+          cd src/tests/unit_test && python -m pytest test_requirements.py -o log_cli=true --log-cli-level=INFO 
       - name: Linting
         run: |
           black src/*          
