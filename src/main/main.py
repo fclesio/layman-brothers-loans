@@ -23,7 +23,7 @@ def pong():
     return {"ping": "OK"}
 
 
-@app.post("/prediction/v1")
+@app.post("/v1/prediction")
 async def get_body(loan: Loans):
     limit_bal: int = loan.limit_bal
     education: int = loan.education
