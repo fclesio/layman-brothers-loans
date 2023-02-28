@@ -1,17 +1,17 @@
-init:
-	find ./ -type f -exec sed -i -e 's/layman_brothers_loans/$(PROJECT)/g' {} \;
-	find . -name "*-e" -type f -delete
-start:
+.PHONY: help runtime_start runtime_stop runtime_logs lint start_ml_run start_api start_jupyter tests docker_push deploy
+help: ## Help.
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+start_dev_env: ## Start docker-container that setup the development environment
 	export DOCKER_BUILDKIT=0  \
 	&& export COMPOSE_DOCKER_CLI_BUILD=0 \
-	&& docker-compose -f docker-compose.yml up --build --detach \
-	&& sleep 5 \
+	&& sh bin/start_dev_env.sh \
+	&& sleep 2 \
 	&& docker container ps
-stop:
-	docker-compose stop
-docker_push:
+start_services: ## Start all services (I) Jupyter, (II) Frontend, (III) RESTFul API
+	sh bin/server_run.sh
+stop_dev_env: ## Stop docker-container that setup the development environment
+	docker container stop layman-brothers-loans-services	
+docker_push: ## Push images to the docker registry
 	sh bin/docker_push.sh
-lint:
-	black --line-length 88 --verbose src
-tests:
+tests: ## Run all tests
 	python -m pytest /app/src/test/unit_test/test_requirements.py -o log_cli=true --log-cli-level=INFO
