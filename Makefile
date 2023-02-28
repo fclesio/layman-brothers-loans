@@ -1,4 +1,4 @@
-.PHONY: help runtime_start runtime_stop runtime_logs lint start_ml_run start_api start_jupyter tests docker_push deploy
+.PHONY: help start_dev_env start_services stop_dev_env docker_push tests
 help: ## Help.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 start_dev_env: ## Start docker-container that setup the development environment
