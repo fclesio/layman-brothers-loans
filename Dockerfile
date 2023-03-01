@@ -43,4 +43,4 @@ EXPOSE 8503
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-CMD ["/bin/bash"]
+CMD ["/bin/bash", "-c", "./bin/server_run.sh"]
